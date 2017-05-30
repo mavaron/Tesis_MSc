@@ -1,0 +1,4 @@
+Import IJ
+
+imp= IJ.getimage();
+print imp;

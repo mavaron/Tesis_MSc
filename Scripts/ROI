@@ -1,0 +1,34 @@
+from ij import IJ
+from ij.gui import PolygonRoi
+from ij.gui import Roi
+from ij.plugin import ImageCalculator as IC
+from ij.process import ImageStatistics as IS  
+from ij.io import FileSaver
+from ij import WindowManager 
+import os  
+
+xpoints = [954,708,3156,2760]
+ypoints = [1290,2112,1920,1158]
+test=IJ.openImage("F:\\MSc Misis\\4 Semestre\\Tesis 1\\DS Prueba\\0.jpg")
+roi=PolygonRoi(xpoints,ypoints,4,Roi.POLYGON)
+test.setRoi(roi)
+imp2=test.duplicate()
+imp2.show()
+
+##
+for filename in os.listdir(folderds):  
+	#Establecer Path
+	Pathfile=("F:\\MSc Misis\\4 Semestre\\Tesis 1\\Dataset Final\\"+filename)
+	#Extraer imagen del Path
+	dsimage=IJ.openImage(Pathfile)
+	#Substracción del área fuera del ROI
+	resultado=IC().run("Subtract create",background,dsimage)
+	#conversion a recipiente FileSaver
+	fs=FileSaver(resultado)
+	#Nombrar archivo
+	filename = folderdsf + "\\" + str(i) +".jpg"
+	#Guardar archivo como JPEG
+	fs.saveAsJpeg(filename)   
+	#impresion en consola del proceso
+	print "Proccessing FinalFile", filename
+	i=i+1 
